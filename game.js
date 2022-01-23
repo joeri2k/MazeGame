@@ -4,7 +4,7 @@ window.onload = function MazeGame() {
   var start_div = document.getElementById("start");
   var end_div = document.getElementById("end");
   var restart = document.getElementsByClassName("example");
-  restart[0].innerHTML = "Restart";
+  restart[0].innerHTML = "Restart Score";
   var status = "start";
   var score = 0;
   function TurnRed() {
@@ -18,7 +18,7 @@ window.onload = function MazeGame() {
       score = score - 10;
     }
 
-    message.innerHTML = `You Lost!😞 Click "S" to start again, Score = ${score}`;
+    message.innerHTML = `You Lost!😞 Move your mouse over the "S" to continue, Score = ${score}`;
     end_div.removeEventListener("mouseenter", TurnGreen, { once: true });
     for (i = 0; i < walls.length - 1; i++) {
       walls[i].removeEventListener("mouseenter", TurnRed, { once: true });
@@ -30,7 +30,8 @@ window.onload = function MazeGame() {
       walls[i].style.backgroundColor = "green";
     }
     score = score + 5;
-    message.innerHTML = 'You Won!🎉 Click "S" to start again, Score = ' + score;
+    message.innerHTML =
+      'You Won!🎉 Move your mouse over the "S" to continue, Score = ' + score;
     end_div.removeEventListener("mouseenter", TurnGreen, { once: true });
     for (i = 0; i < walls.length - 1; i++) {
       walls[i].removeEventListener("mouseenter", TurnRed, { once: true });
