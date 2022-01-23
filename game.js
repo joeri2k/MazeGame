@@ -42,7 +42,7 @@ window.onload = function MazeGame() {
     for (var i = 0; i < walls.length - 1; i++) {
       walls[i].style.backgroundColor = "#eeeeee";
     }
-    message.innerHTML = 'Begin by moving your mouse over the "S".';
+    message.innerHTML = "Move the mouse carefully between the walls.";
     //  status = "ingame";
     YouWin();
     YouLost();
