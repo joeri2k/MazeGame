@@ -5,9 +5,8 @@ window.onload = function MazeGame() {
   var end_div = document.getElementById("end");
   var restart = document.getElementsByClassName("example");
   restart[0].innerHTML = "Restart Score";
-  var status = "start";
   var score = 0;
-  function TurnRed() {
+  function LostFunction() {
     for (var i = 0; i < walls.length - 1; i++) {
       walls[i].style.backgroundColor = "red";
     }
@@ -19,67 +18,63 @@ window.onload = function MazeGame() {
     }
 
     message.innerHTML = `You Lost!😞 Move your mouse over the "S" to continue, Score = ${score}`;
-    end_div.removeEventListener("mouseenter", TurnGreen, { once: true });
+    end_div.removeEventListener("mouseenter", WinFunction, { once: true });
     for (i = 0; i < walls.length - 1; i++) {
-      walls[i].removeEventListener("mouseenter", TurnRed, { once: true });
+      walls[i].removeEventListener("mouseenter", LostFunction, { once: true });
     }
     Start();
   }
-  function TurnGreen() {
+  function WinFunction() {
     for (var i = 0; i < walls.length - 1; i++) {
       walls[i].style.backgroundColor = "green";
     }
     score = score + 5;
     message.innerHTML =
       'You Won!🎉 Move your mouse over the "S" to continue, Score = ' + score;
-    end_div.removeEventListener("mouseenter", TurnGreen, { once: true });
+    end_div.removeEventListener("mouseenter", WinFunction, { once: true });
     for (i = 0; i < walls.length - 1; i++) {
-      walls[i].removeEventListener("mouseenter", TurnRed, { once: true });
+      walls[i].removeEventListener("mouseenter", LostFunction, { once: true });
     }
     Start();
   }
-  function TurnWhite() {
+  function TryAgainFunction() {
     console.log("Turn white");
     for (var i = 0; i < walls.length - 1; i++) {
       walls[i].style.backgroundColor = "#eeeeee";
     }
     message.innerHTML = "Move the mouse carefully between the walls.";
-    //  status = "ingame";
     YouWin();
     YouLost();
   }
 
-  function RestartScore() {
+  function RestartScoreFunction() {
     for (var i = 0; i < walls.length - 1; i++) {
       walls[i].style.backgroundColor = "#eeeeee";
     }
     score = 0;
     message.innerHTML =
       'Begin by moving your mouse over the "S", Score = ' + score;
+    end_div.removeEventListener("mouseenter", WinFunction, { once: true });
     for (i = 0; i < walls.length - 1; i++) {
-      walls[i].removeEventListener("mouseenter", TurnRed, { once: true });
+      walls[i].removeEventListener("mouseenter", LostFunction, { once: true });
     }
     Start();
   }
 
   function Start() {
-    start_div.addEventListener("mouseenter", TurnWhite, { once: true });
+    start_div.addEventListener("mouseenter", TryAgainFunction, { once: true });
   }
   function YouLost() {
     for (i = 0; i < walls.length - 1; i++) {
-      walls[i].addEventListener("mouseenter", TurnRed, { once: true });
+      walls[i].addEventListener("mouseenter", LostFunction, { once: true });
     }
   }
   function YouWin() {
-    end_div.addEventListener("mouseenter", TurnGreen, { once: true });
+    end_div.addEventListener("mouseenter", WinFunction, { once: true });
   }
   function RestartGame() {
-    restart[0].addEventListener("click", RestartScore);
+    restart[0].addEventListener("click", RestartScoreFunction);
   }
-
-  if (status == "start") {
-    Start();
-    status = "ingame";
-  }
+  Start();
   RestartGame();
 };
