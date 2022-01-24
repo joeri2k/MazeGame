@@ -4,6 +4,8 @@ window.onload = function MazeGame() {
   var start_div = document.getElementById("start");
   var end_div = document.getElementById("end");
   var restart = document.getElementsByClassName("example");
+  var out_of_bounds = document.getElementById("game");
+  console.log(out_of_bounds);
   restart[0].innerHTML = "Restart Score";
   var score = 0;
   function LostFunction() {
@@ -60,7 +62,13 @@ window.onload = function MazeGame() {
     }
     Start();
   }
-
+  function StopFunction() {
+    end_div.removeEventListener("mouseenter", WinFunction, { once: true });
+    for (i = 0; i < walls.length - 1; i++) {
+      walls[i].removeEventListener("mouseenter", LostFunction, { once: true });
+    }
+    Start();
+  }
   function Start() {
     start_div.addEventListener("mouseenter", TryAgainFunction, { once: true });
   }
@@ -75,6 +83,10 @@ window.onload = function MazeGame() {
   function RestartGame() {
     restart[0].addEventListener("click", RestartScoreFunction);
   }
+  function Stop() {
+    out_of_bounds.addEventListener("mouseleave", StopFunction);
+  }
   Start();
   RestartGame();
+  Stop();
 };
